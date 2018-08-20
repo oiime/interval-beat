@@ -39,7 +39,7 @@ function __beat (id, props) {
     if (alreadyCalled) throw new IntervalBeatError('you can not use both a promise return and a callback')
     alreadyCalled = true
     if (err) {
-      this.__handleError(task, err)
+      __handleError(task, err)
       // we didnt beat before, do it now
       if (task.waitFinished) setTimeout(() => __beat(id, nextProps), task.interval)
     }
@@ -51,7 +51,7 @@ function __beat (id, props) {
     p.then((nextProps) => {
       if (task.waitFinished) setTimeout(() => __beat(id, nextProps), task.interval)
     }).catch(err => {
-      this.__handleError(task, err)
+      __handleError(task, err)
       if (task.waitFinished) setTimeout(() => __beat(id), task.interval)
     })
   }
